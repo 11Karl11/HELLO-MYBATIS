@@ -2,12 +2,9 @@ package com.karl.dao;
 
 import com.karl.pojo.User;
 import com.karl.utils.MybatisUtils;
-import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
-import org.apache.log4j.Logger;
 import org.junit.Test;
 
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -15,12 +12,11 @@ import java.util.List;
  */
 public class UserDaoTest {
 
-    static Logger logger = Logger.getLogger(UserDaoTest.class);
-
 
     @Test
     public void test() {
         SqlSession sqlSession = null;
+
         try {
             //获取SqlSession对象
             sqlSession = MybatisUtils.getSqlSession();
@@ -41,24 +37,21 @@ public class UserDaoTest {
 
     }
 
-    @Test
-    public void getUserByLimit(){
 
+    @Test
+    public void test1() {
         SqlSession sqlSession = null;
+
         try {
             //获取SqlSession对象
             sqlSession = MybatisUtils.getSqlSession();
             //执行SQL
             UserMapper userDao = sqlSession.getMapper(UserMapper.class);
 
-            HashMap<String, Integer> map = new HashMap<>();
-            map.put("startIndex",0);
-            map.put("pageSize",2);
-            List<User> userList = userDao.getUserByLimit(map);
+            User user = userDao.getUserById(2);
 
-            for (User user : userList) {
-                System.out.println(user);
-            }
+            System.out.println(user);
+
         } catch (Throwable e) {
             e.printStackTrace();
         } finally {
@@ -69,20 +62,18 @@ public class UserDaoTest {
     }
 
     @Test
-    public void getUserByRowBounds(){
-
+    public void test2() {
         SqlSession sqlSession = null;
+
         try {
             //获取SqlSession对象
             sqlSession = MybatisUtils.getSqlSession();
+            //执行SQL
+            UserMapper userDao = sqlSession.getMapper(UserMapper.class);
 
-            //rowBounds实现分页
-            RowBounds rowBounds = new RowBounds(1, 2);
+            userDao.addUser(new User(9,"ghhah哈哈","0000"));
 
-            //通过java代码层面实现分页
-            List<User> userList = sqlSession.selectList("com.karl.dao.UserMapper.getUserByRowBounds",null,rowBounds);
 
-            userList.forEach(user -> System.out.println(user));
         } catch (Throwable e) {
             e.printStackTrace();
         } finally {

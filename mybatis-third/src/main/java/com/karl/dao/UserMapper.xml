@@ -39,8 +39,8 @@
         select * from user limit #{startIndex},#{pageSize}
     </select>
 
-    <select id="getUserByRowBounds" resultType="com.karl.pojo.User">
-
+    <select id="getUserByRowBounds" resultMap="UserMap">
+        select * from user
     </select>
 
 
