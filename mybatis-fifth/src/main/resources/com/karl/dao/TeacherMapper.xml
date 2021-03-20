@@ -8,4 +8,5 @@
     <select id="getTeacher" resultType="com.karl.pojo.Teacher">
         select * from teacher where id =#{tid}
     </select>
+
 </mapper>

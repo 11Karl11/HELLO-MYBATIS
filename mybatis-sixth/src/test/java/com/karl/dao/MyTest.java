@@ -1,6 +1,5 @@
 package com.karl.dao;
 
-import com.karl.pojo.Student;
 import com.karl.pojo.Teacher;
 import com.karl.utils.MybatisUtils;
 import org.apache.ibatis.session.SqlSession;
@@ -20,10 +19,9 @@ public class MyTest {
         try {
             //获取SqlSession对象
             sqlSession = MybatisUtils.getSqlSession();
-
             TeacherMapper mapper = sqlSession.getMapper(TeacherMapper.class);
-            Teacher teacher = mapper.getTeacher(1);
-            System.out.println(teacher);
+            List<Teacher> teachers = mapper.getTeacher();
+            teachers.forEach(teacher -> System.out.println(teacher));
         } catch (Throwable e) {
             e.printStackTrace();
         } finally {
@@ -31,8 +29,6 @@ public class MyTest {
             sqlSession.close();
         }
     }
-
-
 
     @Test
     public void test2(){
@@ -40,10 +36,9 @@ public class MyTest {
         try {
             //获取SqlSession对象
             sqlSession = MybatisUtils.getSqlSession();
+            TeacherMapper mapper = sqlSession.getMapper(TeacherMapper.class);
+            System.out.println(mapper.getTeacher1(1));
 
-            StudentMapper mapper = sqlSession.getMapper(StudentMapper.class);
-            List<Student> students = mapper.getStudent();
-            students.forEach(student -> System.out.println(student));
         } catch (Throwable e) {
             e.printStackTrace();
         } finally {
@@ -51,7 +46,6 @@ public class MyTest {
             sqlSession.close();
         }
     }
-
 
     @Test
     public void test3(){
@@ -59,10 +53,9 @@ public class MyTest {
         try {
             //获取SqlSession对象
             sqlSession = MybatisUtils.getSqlSession();
+            TeacherMapper mapper = sqlSession.getMapper(TeacherMapper.class);
+            System.out.println(mapper.getTeacher2(1));
 
-            StudentMapper mapper = sqlSession.getMapper(StudentMapper.class);
-            List<Student> students = mapper.getStudent2();
-            students.forEach(student -> System.out.println(student));
         } catch (Throwable e) {
             e.printStackTrace();
         } finally {
@@ -70,5 +63,7 @@ public class MyTest {
             sqlSession.close();
         }
     }
+
+
 
 }
